@@ -128,17 +128,14 @@ class _formregisterState extends State<formregister> {
                       SizedBox(height: 35),
 
                       //register button
-                      Obx(() => authController.isLoading.value?Container(
+                      Container(
                         child: Align(
                           alignment: Alignment.bottomRight,
                           child: ElevatedButton(
                             child: const Text("Register"),
-                            onPressed: () {
-                            },
-                            
+                            onPressed: () {},
                           ),
                         ),
-                      ),
                       ),
 
                       Row(
