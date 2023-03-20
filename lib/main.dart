@@ -1,7 +1,9 @@
+import 'package:eventing/views/homepage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:eventing/views/formlogin.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:get/get.dart'; 
+import 'package:get/get.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,9 +19,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: formlogin(),
+      home:
+          FirebaseAuth.instance.currentUser == null ? formlogin() : MainMenu(),
     );
   }
 }

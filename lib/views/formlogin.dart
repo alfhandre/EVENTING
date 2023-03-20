@@ -16,15 +16,12 @@ class _MyHomePageState extends State<formlogin> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
-  String _email = '';
-  String _password = '';
-
   late AuthController authController;
 
   @override
-  void iniState() {
+  void initState() {
     super.initState();
-    authController = Get.put(AuthController()); 
+    authController = Get.put(AuthController());
   }
 
   @override
@@ -56,25 +53,21 @@ class _MyHomePageState extends State<formlogin> {
                       style: TextStyle(fontSize: 20),
                     )),
 
-                //form username
+                //form email
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
-                    // controller: nameController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'User Name',
+                      labelText: 'Email',
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Email tidak boleh kosong';
                       }
-                      return null;
                     },
-                    onSaved: (value) {
-                      _email = value!;
-                    },
+                    controller: emailController,
                   ),
                 ),
 
@@ -95,9 +88,7 @@ class _MyHomePageState extends State<formlogin> {
                       }
                       return null;
                     },
-                    onSaved: (value) {
-                      _password = value!;
-                    },
+                    controller: passwordController,
                   ),
                 ),
 
@@ -127,20 +118,25 @@ class _MyHomePageState extends State<formlogin> {
                 ),
 
                 //login button
-                Container(
-                  height: 50,
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: ElevatedButton(
-                    child: const Text('Login'),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        // validasi berhasil, lanjutkan login
-                      }
-                      _login();
-                    },
-                  ),
-                )
+                Obx(() => authController.isLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Container(
+                        height: 50,
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: ElevatedButton(
+                          child: const Text('Login'),
+                          onPressed: () {
+                            if (!_formKey.currentState!.validate()) {
+                              return;
+                            }
+                            authController.login(
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim());
+                          },
+                        ),
+                      )),
               ],
             ),
           ),
@@ -149,47 +145,20 @@ class _MyHomePageState extends State<formlogin> {
     );
   }
 
-  Future<void> _login() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // lakukan proses login, contoh:
-    if (_email == 'andre' && _password == '123') {
-      prefs.setString('email', _email);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MainMenu()),
-      );
-    } else {
-      // login gagal, tampilkan pesan error
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Email atau password salah'),
-      ));
-    }
-  }
-
-  // method ini berfungsi untuk memasukkan data ke dalam SharedPreferences
-  // void setIntoSharedPreferences() async {
+  // Future<void> _login() async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  //   await prefs.setString("email", emailController.text);
-  //   await prefs.setString("password", passwordController.text);
+  //   // lakukan proses login, contoh:
+  //   if (_email == 'andre' && _password == '123') {
+  //     prefs.setString('email', _email);
+  // Navigator.pushReplacement(
+  //   context,
+  //   MaterialPageRoute(builder: (context) => MainMenu()),
+  // );
+  //   } else {
+  //     // login gagal, tampilkan pesan error
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //       content: Text('Email atau password salah'),
+  //     ));
+  //   }
   // }
-
-  // // Method ini berfungsi untuk mengambil data Email dan Password dari SharedPreferences
-  // // kemudian dimasukkan ke variable email dan password
-  // void getFromSharedPreferences() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  //   setState(
-  //     () {
-  //       email = prefs.getString("email")!;
-  //       password = prefs.getString("password")!;
-  //       Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(
-  //           builder: (context) {
-  //             return MainMenu();
-  //           },
-  //         ),
-  //       );
-  //     },
-  //   );
 }

@@ -5,12 +5,25 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Text("create profile"),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.blue,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+        centerTitle: true,
+        title: Text(
+          'Profil',
+          style: TextStyle(color: Colors.blue),
         ),
+        backgroundColor: Colors.white,
       ),
+      body: Container(),
     );
   }
 }

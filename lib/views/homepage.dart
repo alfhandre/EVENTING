@@ -1,4 +1,5 @@
 import 'package:eventing/views/DemoApp.dart';
+import 'package:eventing/views/create_profile.dart';
 import 'package:eventing/views/formlogin.dart';
 import 'package:flutter/material.dart';
 
@@ -30,13 +31,24 @@ class _MainMenuState extends State<MainMenu> {
           children: [
             Container(
               width: double.infinity,
-              height: 150,
-              color: Colors.red,
-              alignment: Alignment.center,
-              child: Text(
-                'menu profile',
-                style: TextStyle(fontSize: 20),
+              height: 140,
+              child: ElevatedButton(
+                style: ButtonStyle(),
+                child: Text(
+                  'Profile',
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ProfileScreen();
+                      },
+                    ),
+                  );
+                },
               ),
+              color: Colors.red,
             ),
             SizedBox(
               height: 10,
@@ -82,7 +94,7 @@ class _MainMenuState extends State<MainMenu> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return formlogin();
+                      return ProfileScreen();
                     },
                   ),
                 );
