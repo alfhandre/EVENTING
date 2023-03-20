@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "31130109314",
+    "project_id": "eventing-app-ec0a7",
+    "storage_bucket": "eventing-app-ec0a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31130109314:android:b8edc0380bef74f6acfb9b",
+        "android_client_info": {
+          "package_name": "com.example.eventing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31130109314-u6ttk3oinub5k6dtr9hbe55qdg88bjmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ35jOpK0QnDX5F2ThgQUeSmKF70JVyA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31130109314-u6ttk3oinub5k6dtr9hbe55qdg88bjmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
