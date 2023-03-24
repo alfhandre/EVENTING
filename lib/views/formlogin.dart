@@ -39,8 +39,8 @@ class _MyHomePageState extends State<formlogin> {
                   child: Center(
                     child: Image.asset(
                       'images/logo.png',
-                      width: 300,
-                      height: 300,
+                      width: 250,
+                      height: 250,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -118,25 +118,47 @@ class _MyHomePageState extends State<formlogin> {
                 ),
 
                 //login button
-                Obx(() => authController.isLoading.value
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Container(
-                        height: 50,
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: ElevatedButton(
-                          child: const Text('Login'),
-                          onPressed: () {
-                            if (!_formKey.currentState!.validate()) {
-                              return;
-                            }
-                            authController.login(
-                                email: emailController.text.trim(),
-                                password: passwordController.text.trim());
-                          },
+                Obx(
+                  () => authController.isLoading.value
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Container(
+                          height: 50,
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: ElevatedButton(
+                            child: const Text('Login'),
+                            onPressed: () {
+                              if (!_formKey.currentState!.validate()) {
+                                return;
+                              }
+                              authController.login(
+                                  email: emailController.text.trim(),
+                                  password: passwordController.text.trim());
+                            },
+                          ),
                         ),
-                      )),
+                ),
+                SizedBox(height: Get.height * 0.02),
+                Container(
+                  child: Text(
+                    'Or Connect With',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        authController.signInWithGoogle();
+                      },
+                      icon: Image.asset('images/google.png'),
+                      iconSize: 70,
+                    )
+                  ],
+                ),
               ],
             ),
           ),
