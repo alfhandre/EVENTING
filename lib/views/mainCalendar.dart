@@ -2,38 +2,40 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
 
-class DemoApp extends StatefulWidget {
+class mainCalendar extends StatefulWidget {
   @override
-  _DemoAppState createState() => _DemoAppState();
+  _mainCalendarState createState() => _mainCalendarState();
 }
 
-class _DemoAppState extends State<DemoApp> {
+class _mainCalendarState extends State<mainCalendar> {
   DateTime? selectedDay;
   List<CleanCalendarEvent>? selectedEvent;
 
   final Map<DateTime, List<CleanCalendarEvent>> events = {
     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day): [
-      CleanCalendarEvent('Event A',
+      CleanCalendarEvent('Proyek 4 : Mobile',
           startTime: DateTime(DateTime.now().year, DateTime.now().month,
               DateTime.now().day, 10, 0),
           endTime: DateTime(DateTime.now().year, DateTime.now().month,
               DateTime.now().day, 12, 0),
-          description: 'A special event',
+          description: 'Ayo belajar',
           color: Colors.blue),
     ],
     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 2):
         [
-      CleanCalendarEvent('Event B',
+      CleanCalendarEvent('Statpro (Teori)',
           startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day + 2, 10, 0),
+              DateTime.now().day + 2, 7, 0),
           endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day + 2, 12, 0),
+              DateTime.now().day + 2, 9, 0),
+          description: 'bisa yu',
           color: Colors.orange),
-      CleanCalendarEvent('Event C',
+      CleanCalendarEvent('PCD (Teori)',
           startTime: DateTime(DateTime.now().year, DateTime.now().month,
               DateTime.now().day + 2, 14, 30),
           endTime: DateTime(DateTime.now().year, DateTime.now().month,
               DateTime.now().day + 2, 17, 0),
+          description: 'bismillah ga ikut UAS lagi',
           color: Colors.pink),
     ],
   };
@@ -83,7 +85,7 @@ class _DemoAppState extends State<DemoApp> {
               fontWeight: FontWeight.w100,
             ),
             bottomBarTextStyle: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
             ),
             hideBottomBar: false,
             hideArrows: false,

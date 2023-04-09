@@ -4,7 +4,7 @@ import 'package:eventing/views/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
-
+  
 class formlogin extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -31,136 +31,158 @@ class _MyHomePageState extends State<formlogin> {
         color: Colors.white,
         child: Form(
           key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: ListView(
-              children: <Widget>[
-                Container(
-                  child: Center(
-                    child: Image.asset(
-                      'images/logo.png',
-                      width: 250,
-                      height: 250,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(10),
-                    child: const Text(
-                      'Sign in',
-                      style: TextStyle(fontSize: 20),
-                    )),
-
-                //form email
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Email tidak boleh kosong';
-                      }
-                    },
-                    controller: emailController,
-                  ),
-                ),
-
-                //form password
-                Container(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: TextFormField(
-                    // controller: passwordController,
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Password tidak boleh kosong';
-                      }
-                      return null;
-                    },
-                    controller: passwordController,
-                  ),
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: ListView(
+            children: <Widget>[
+              Container(
+                child: Stack(
                   children: [
-                    TextButton(
-                      onPressed: () {
-                        //forgot password screen
-                      },
-                      child: const Text(
-                        'Forgot Password',
+                    Container(
+                      child: Image.asset(
+                        'images/Rectangle 32.png',
+                        width: MediaQuery.of(context).size.width,
+                        height: 350,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return formregister();
-                        }));
-                      },
-                      child: const Text(
-                        'Register',
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        'images/Scene Plants2.png',
+                        height: 300,
+                        width: 300,
                       ),
                     ),
                   ],
                 ),
+              ),
 
-                //login button
-                Obx(
-                  () => authController.isLoading.value
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Container(
-                          height: 50,
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: ElevatedButton(
-                            child: const Text('Login'),
-                            onPressed: () {
-                              if (!_formKey.currentState!.validate()) {
-                                return;
-                              }
-                              authController.login(
-                                  email: emailController.text.trim(),
-                                  password: passwordController.text.trim());
-                            },
-                          ),
+              //form email
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    labelText: 'Alamat e-mail',
+                    labelStyle: TextStyle(color: Colors.blue),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email tidak boleh kosong';
+                    }
+                  },
+                  controller: emailController,
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              //form password
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: TextFormField(
+                  // controller: passwordController,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.blue,
                         ),
+                      ),
+                      labelText: 'Password',
+                      labelStyle: TextStyle(color: Colors.blue)),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  controller: passwordController,
                 ),
-                SizedBox(height: Get.height * 0.02),
-                Container(
-                  child: Text(
-                    'Or Connect With',
-                    textAlign: TextAlign.center,
+              ),
+
+              SizedBox(height: 20),
+              //login button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // TextButton(
+                      //   onPressed: () {
+                      //     //forgot password screen
+                      //   },
+                      //   child: const Text(
+                      //     'Forgot Password',
+                      //   ),
+                      // ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return formregister();
+                          }));
+                        },
+                        child: const Text(
+                          'Register',
+                        ),
+                      ),
+                    ],
                   ),
+                  Obx(
+                    () => authController.isLoading.value
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Container(
+                            // height: 50,
+                            // width: 50,
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  minimumSize:
+                                      MaterialStateProperty.all(Size(104, 38))),
+                              child: const Text('Masuk'),
+                              onPressed: () {
+                                if (!_formKey.currentState!.validate()) {
+                                  return;
+                                }
+                                authController.login(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text.trim());
+                              },
+                            ),
+                          ),
+                  ),
+                ],
+              ),
+              SizedBox(height: Get.height * 0.02),
+              Container(
+                child: Text(
+                  'Or Login with',
+                  textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        authController.signInWithGoogle();
-                      },
-                      icon: Image.asset('images/google.png'),
-                      iconSize: 70,
-                    )
-                  ],
-                ),
-              ],
-            ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      authController.signInWithGoogle();
+                    },
+                    icon: Image.asset('images/google.png'),
+                    iconSize: 70,
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),

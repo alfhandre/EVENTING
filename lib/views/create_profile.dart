@@ -1,35 +1,65 @@
 import 'dart:io';
 import 'package:eventing/controller/auth_controller.dart';
+import 'package:eventing/views/testcreateprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
-import 'package:eventing/widgets/my_widget.dart';
+import 'package:flutter/services.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
-
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<Null> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  TextEditingController userIDController = TextEditingController();
+  TextEditingController displayNameController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+
+  //   Future _pickImage(ImageSource source) async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: source);
+  //     if (image == null) return;
+  //     File? img = File(image.path);
+  //     img = await _cropImage(imageFile: img);
+  //     setState(() {
+  //       _image = img;
+  //       Navigator.of(context).pop();
+  //     });
+  //   } on PlatformException catch (e) {
+  //     print(e);
+  //     Navigator.of(context).pop();
+  //   }
+  // }
+
+  void _showSelectPhotoOptions(BuildContext context) {
+    showModalBottomSheet(
       context: context,
-      initialDate: DateTime.now(),
-      initialDatePickerMode: DatePickerMode.day,
-      firstDate: DateTime(1950),
-      lastDate: DateTime(2101),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25.0),
+        ),
+      ),
+      builder: (context) => DraggableScrollableSheet(
+          initialChildSize: 0.28,
+          maxChildSize: 0.4,
+          minChildSize: 0.28,
+          expand: false,
+          builder: (context, scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              // child: SelectPhotoOptionsScreen(
+
+              // ),
+            );
+          }),
     );
   }
-
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController mobileNumberController = TextEditingController();
-  TextEditingController dob = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
 
   imagePickDialog() {
     showDialog(
@@ -99,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    authController = Get.find<AuthController>();
+    authController = Get.put(AuthController());
   }
 
   @override
@@ -109,6 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         margin: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
         child: SingleChildScrollView(
           child: Form(
+            key: formKey,
             child: Column(
               children: [
                 SizedBox(
@@ -128,11 +159,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         'Profile',
                         style: TextStyle(color: Colors.blue, fontSize: 18),
                       ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.check),
-                          color: Colors.blue,
-                          alignment: Alignment.topRight),
+                      Obx(
+                        () => authController!.isProfileInformationLoading.value
+                            ? Container(
+                                child: CircularProgressIndicator(),
+                              )
+                            : IconButton(
+                                icon: Icon(Icons.check),
+                                color: Colors.blue,
+                                alignment: Alignment.topRight,
+                                onPressed: () async {
+                                  if (!formKey.currentState!.validate()) {
+                                    return null;
+                                  }
+
+                                  if (profileImage == null) {
+                                    Get.snackbar(
+                                        'Warning', "Image is required.",
+                                        colorText: Colors.white,
+                                        backgroundColor: Colors.blue);
+                                    return null;
+                                  }
+                                  authController!
+                                      .isProfileInformationLoading(true);
+
+                                  String imageUrl = await authController!
+                                      .uploadImageToFirebaseStorage(
+                                          profileImage!);
+
+                                  authController!.uploadProfileData(
+                                      imageUrl,
+                                      userIDController.text.trim(),
+                                      displayNameController.text.trim());
+                                }),
+                      )
                     ]),
                 SizedBox(
                   height: Get.width * 0.1,
@@ -187,138 +247,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 SizedBox(height: Get.height * 0.1),
-                TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Nama',
-                      filled: true,
-                      fillColor: Colors.grey[200]),
-                  validator: (test) {
-                    return;
-                  },
-                ),
-                SizedBox(height: 50),
-                TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'E-Mail',
-                      filled: true,
-                      fillColor: Colors.grey[200]),
-                ),
-                SizedBox(height: 50),
-
-                //
-                //
-
                 Container(
                   alignment: Alignment.centerLeft,
                   // padding: EdgeInsets.only(right: 260),
-                  child: Text('Informasi lainnnya'),
-                ),
-                SizedBox(height: 10),
-                //
-                Container(
-                  height: 50,
-                  width: 320,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // aksi saat tombol ditekan
-                    },
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: Colors.grey[200],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .spaceBetween, // teks diatur agar ada di sisi kiri dan ikon di sisi kanan tombol
-                      children: [
-                        Text('Jenis Kelamin',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold)),
-                        Row(
-                          children: [
-                            Text(
-                              'Tidak ada yang dipilih',
-                              style: TextStyle(color: Colors.blue),
-                              textAlign: TextAlign.end,
-                            ),
-                            Icon(Icons.arrow_right_rounded,
-                                color: Colors.blue, size: 16.0),
-                          ],
-                        ),
-                      ],
-                    ),
+                  child: Text(
+                    'User ID',
+                    style: TextStyle(color: Colors.blue),
                   ),
                 ),
+                SizedBox(height: 8),
+                TextFormField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.grey[200]),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'User ID tidak boleh kosong';
+                    }
+                  },
+                  controller: userIDController,
+                ),
+                SizedBox(height: 30),
                 Container(
-                  height: 50,
-                  width: 320,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // aksi saat tombol ditekan
-                    },
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: Colors.grey[200],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .spaceBetween, // teks diatur agar ada di sisi kiri dan ikon di sisi kanan tombol
-                      children: [
-                        Text('Status',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold)),
-                        Row(
-                          children: [
-                            Text(
-                              'Menikah/Belum menikah',
-                              style: TextStyle(color: Colors.blue),
-                              textAlign: TextAlign.end,
-                            ),
-                            Icon(Icons.arrow_right_rounded,
-                                color: Colors.blue, size: 16.0),
-                          ],
-                        ),
-                      ],
-                    ),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Display Name',
+                    style: TextStyle(color: Colors.blue),
                   ),
                 ),
-                Container(
-                  height: 50,
-                  width: 320,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // aksi saat tombol ditekan
-                    },
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: Colors.grey[200],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .spaceBetween, // teks diatur agar ada di sisi kiri dan ikon di sisi kanan tombol
-                      children: [
-                        Text('Tujuan Pemakaian',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold)),
-                        Row(
-                          children: [
-                            Text(
-                              'Tidak ada yang dipilih',
-                              style: TextStyle(color: Colors.blue),
-                              textAlign: TextAlign.end,
-                            ),
-                            Icon(Icons.arrow_right_rounded,
-                                color: Colors.blue, size: 16.0),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                SizedBox(height: 8),
+                TextFormField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.grey[200]),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Nama tidak boleh kosong';
+                    }
+                  },
+                  controller: displayNameController,
                 ),
+                SizedBox(height: 30),
               ],
             ),
           ),

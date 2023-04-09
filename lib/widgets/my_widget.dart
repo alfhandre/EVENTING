@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-// import 'package:flutter_svg/svg.dart';
-// import '../utils/app_color.dart';
+import 'package:flutter_svg/svg.dart';
+import '../utils/app_color.dart';
 
 Widget myText({text, style, textAlign}) {
   return Text(
@@ -33,91 +32,91 @@ Widget textField({text,TextEditingController? controller,Function? validator,Tex
   );
 }
 
-// Widget myTextField({text, String? icon, bool, TextEditingController? controller,Function? validator}) {
-//   return Container(
-//     height: 45,
-//     child: TextFormField(
+Widget myTextField({text, String? icon, bool, TextEditingController? controller,Function? validator}) {
+  return Container(
+    height: 45,
+    child: TextFormField(
 
-//       validator: (input)=> validator!(input),
-//       obscureText: bool,
-//       controller: controller,
-//       decoration: InputDecoration(
-//         contentPadding:EdgeInsets.only(top: 5),
-//         errorStyle: TextStyle(fontSize: 0),
-//         hintStyle: TextStyle(
-//           color: AppColors.genderTextColor,
-//         ),
-//         hintText: text,
-//         prefixIcon: Image.asset(
-//           icon!,
-//           cacheHeight: 20,
-//         ),
-//           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0))
-//       ),
-//     ),
-//   );
-// }
+      validator: (input)=> validator!(input),
+      obscureText: bool,
+      controller: controller,
+      decoration: InputDecoration(
+        contentPadding:EdgeInsets.only(top: 5),
+        errorStyle: TextStyle(fontSize: 0),
+        hintStyle: TextStyle(
+          color: AppColors.genderTextColor,
+        ),
+        hintText: text,
+        prefixIcon: Image.asset(
+          icon!,
+          cacheHeight: 20,
+        ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0))
+      ),
+    ),
+  );
+}
 
-// Widget socialAppsIcons({text,Function? onPressed}) {
-//   return InkWell(
-//     onTap: ()=> onPressed!(),
-//     child: Container(
-//       margin: EdgeInsets.all(10),
-//       width: 48,
-//       height: 48,
-//       decoration: BoxDecoration(
+Widget socialAppsIcons({text,Function? onPressed}) {
+  return InkWell(
+    onTap: ()=> onPressed!(),
+    child: Container(
+      margin: EdgeInsets.all(10),
+      width: 48,
+      height: 48,
+      decoration: BoxDecoration(
 
-//         image: DecorationImage(
-//           image: AssetImage(text),
-//         ),
-//       ),
-//     ),
-//   );
-// }
+        image: DecorationImage(
+          image: AssetImage(text),
+        ),
+      ),
+    ),
+  );
+}
 
-// Widget settingIconAndText(
-//     Function onPressed, {
-//       text,
-//       image,
-//     }) {
-//   return Container(
-//     // margin: EdgeInsets.only(top: Get.height * 0.03),
-//     child: ListTile(
-//       onTap: () => onPressed(),
-//       leading: SvgPicture.asset(
-//         image,
-//         height: 20,
-//       ),
-//       title: Transform.translate(
-//         offset: Offset(-16, 0),
-//         child: Text(text,
-//             style: TextStyle(
-//               fontSize: 16,
-//               fontWeight: FontWeight.w600,
-//             )),
-//       ),
-//     ),
-//   );
-// }
+Widget settingIconAndText(
+    Function onPressed, {
+      text,
+      image,
+    }) {
+  return Container(
+    // margin: EdgeInsets.only(top: Get.height * 0.03),
+    child: ListTile(
+      onTap: () => onPressed(),
+      leading: SvgPicture.asset(
+        image,
+        height: 20,
+      ),
+      title: Transform.translate(
+        offset: Offset(-16, 0),
+        child: Text(text,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            )),
+      ),
+    ),
+  );
+}
 
-// Widget elevatedButton({text, Function? onpress}) {
-//   return ElevatedButton(
-//     style: ButtonStyle(
+Widget elevatedButton({text, Function? onpress}) {
+  return ElevatedButton(
+    style: ButtonStyle(
 
-//       backgroundColor: MaterialStateProperty.all<Color>(AppColors.blue),
-//     ),
-//     onPressed: () {
-//       onpress!();
-//     },
-//     child: Text(
-//       text,
-//       style: TextStyle(
-//         fontSize: 18,
-//         fontWeight: FontWeight.w500,
-//       ),
-//     ),
-//   );
-// }
+      backgroundColor: MaterialStateProperty.all<Color>(AppColors.blue),
+    ),
+    onPressed: () {
+      onpress!();
+    },
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+  );
+}
 
 // Widget labelTextField({label, hintText}) {
 //   return Container(
@@ -160,117 +159,117 @@ Widget textField({text,TextEditingController? controller,Function? validator,Tex
 //   );
 // }
 
-// Widget iconWithTitle({text, Function? func,bool? isShow = true}) {
-//   return Row(
-//     children: [
-//       !isShow!? Container(): Expanded(
-//         flex: 0,
-//         child: InkWell(
-//           onTap: () {
-//             func!();
-//           },
-//           child: Container(
-//             margin: EdgeInsets.only(
-//               left: Get.width * 0.02,
-//               top: Get.height * 0.08,
-//               bottom: Get.height * 0.02,
-//             ),
-//             // alignment: Alignment.center,
-//             width: 30,
-//             height: 30,
-//             decoration: BoxDecoration(
-//               // border: Border.all(width: 1),
-//               // borderRadius: BorderRadius.circular(50),
-//               image: DecorationImage(
-//                 image: AssetImage('assets/Header.png'),
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//       Expanded(
-//         flex: 6,
-//         child: Container(
-//           alignment: Alignment.center,
-//           margin: EdgeInsets.only(
-//             top: Get.height * 0.056,
-//             // left: Get.width * 0.26,
-//           ),
-//           child: myText(
-//             text: text,
-//             style: TextStyle(
-//               fontSize: 23,
-//               fontWeight: FontWeight.w600,
-//             ),
-//           ),
-//         ),
-//       ),
-//       Expanded(
-//         flex: 1,
-//         child: Text(''),
-//       )
-//     ],
-//   );
-// }
+Widget iconWithTitle({text, Function? func,bool? isShow = true}) {
+  return Row(
+    children: [
+      !isShow!? Container(): Expanded(
+        flex: 0,
+        child: InkWell(
+          onTap: () {
+            func!();
+          },
+          child: Container(
+            margin: EdgeInsets.only(
+              left: Get.width * 0.02,
+              top: Get.height * 0.08,
+              bottom: Get.height * 0.02,
+            ),
+            // alignment: Alignment.center,
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              // border: Border.all(width: 1),
+              // borderRadius: BorderRadius.circular(50),
+              image: DecorationImage(
+                image: AssetImage('assets/Header.png'),
+              ),
+            ),
+          ),
+        ),
+      ),
+      Expanded(
+        flex: 6,
+        child: Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(
+            top: Get.height * 0.056,
+            // left: Get.width * 0.26,
+          ),
+          child: myText(
+            text: text,
+            style: TextStyle(
+              fontSize: 23,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
+      Expanded(
+        flex: 1,
+        child: Text(''),
+      )
+    ],
+  );
+}
 
 
 
-// Widget iconTitleContainer({
-//   text,
-//   path,
-//   Function? onPress,
-//   bool isReadOnly = false,
-//   TextInputType type = TextInputType.text,
-//   TextEditingController? controller,
-//   Function? validator,
-//   double width = 150,
-//   double height=40
-// }) {
-//   return Container(
-//     // padding: EdgeInsets.only(left: 10),
-//     decoration: BoxDecoration(
-//       borderRadius: BorderRadius.circular(8),
-//       border: Border.all(width: 0.1, color: AppColors.genderTextColor),
-//     ),
-//     width: width,
-//     height: height,
-//     child: TextFormField(
-//       validator: (String? input)=> validator!(input!),
-//       controller: controller,
-//       keyboardType: type,
-//       readOnly: isReadOnly,
-//       onTap: () {
-//         onPress!();
-//       },
-//       // style: TextStyle(
-//       //   fontSize: 16,
-//       //   fontWeight: FontWeight.w400,
-//       //   color: AppColors.genderTextColor,
-//       // ),
-//       decoration: InputDecoration(
-//         errorStyle: TextStyle(fontSize: 0),
-//         contentPadding: EdgeInsets.only(top: 3),
-//         prefixIcon: Container(
-//           child: Image.asset(
-//             path,
-//             cacheHeight: 18,
-//           ),
-//         ),
-//         hintText: text,
-//         hintStyle: TextStyle(
-//           fontSize: 16,
-//           fontWeight: FontWeight.w400,
-//           color: AppColors.genderTextColor,
-//         ),
+Widget iconTitleContainer({
+  text,
+  path,
+  Function? onPress,
+  bool isReadOnly = false,
+  TextInputType type = TextInputType.text,
+  TextEditingController? controller,
+  Function? validator,
+  double width = 150,
+  double height=40
+}) {
+  return Container(
+    // padding: EdgeInsets.only(left: 10),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(width: 0.1, color: AppColors.genderTextColor),
+    ),
+    width: width,
+    height: height,
+    child: TextFormField(
+      validator: (String? input)=> validator!(input!),
+      controller: controller,
+      keyboardType: type,
+      readOnly: isReadOnly,
+      onTap: () {
+        onPress!();
+      },
+      // style: TextStyle(
+      //   fontSize: 16,
+      //   fontWeight: FontWeight.w400,
+      //   color: AppColors.genderTextColor,
+      // ),
+      decoration: InputDecoration(
+        errorStyle: TextStyle(fontSize: 0),
+        contentPadding: EdgeInsets.only(top: 3),
+        prefixIcon: Container(
+          child: Image.asset(
+            path,
+            cacheHeight: 18,
+          ),
+        ),
+        hintText: text,
+        hintStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: AppColors.genderTextColor,
+        ),
 
-//         border: isReadOnly
-//             ? OutlineInputBorder(
-//                 borderSide: BorderSide(color: Color(0xffA6A6A6)),borderRadius: BorderRadius.circular(8))
-//             : OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-//       ),
-//     ),
-//   );
-// }
+        border: isReadOnly
+            ? OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffA6A6A6)),borderRadius: BorderRadius.circular(8))
+            : OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    ),
+  );
+}
 
 // Widget community1st({title, path, style}) {
 //   return Row(

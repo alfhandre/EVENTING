@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path/path.dart' as Path;
 
-
 import 'package:eventing/views/homepage.dart';
 import 'package:eventing/views/create_profile.dart';
 
@@ -84,7 +83,7 @@ class AuthController extends GetxController {
     });
   }
 
-    var isProfileInformationLoading = false.obs;
+  var isProfileInformationLoading = false.obs;
 
   Future<String> uploadImageToFirebaseStorage(File image) async {
     String imageUrl = '';
@@ -103,24 +102,16 @@ class AuthController extends GetxController {
     return imageUrl;
   }
 
-
-
-
-  uploadProfileData(String imageUrl, String fullName, String lastName,
-      String mobileNumber, String dob, String gender) {
-
+  uploadProfileData(String imageUrl, String userID, String displayName) {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
     FirebaseFirestore.instance.collection('users').doc(uid).set({
       'image': imageUrl,
-      'full': fullName,
-      'last': lastName,
-      'dob': dob,
-      'gender': gender
+      'id': userID,
+      'dp': displayName,
     }).then((value) {
       isProfileInformationLoading(false);
-      Get.offAll(()=> HomeScreen());
+      Get.offAll(() => MainMenu());
     });
-
   }
 }
