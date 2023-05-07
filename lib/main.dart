@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:eventing/views/welcomeeventing.dart';
 // import 'package:eventing/views/create_event.dart';
-// import 'package:eventing/views/createevent.dart';
+import 'package:eventing/views/createevent.dart';
 // import 'package:eventing/views/homepage.dart';
 // import 'package:eventing/views/homescreen.dart';
 // import 'package:firebase_auth/firebase_auth.dart';

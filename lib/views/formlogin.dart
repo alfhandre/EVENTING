@@ -4,7 +4,9 @@ import 'package:eventing/views/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
-  
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class formlogin extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -12,6 +14,8 @@ class formlogin extends StatefulWidget {
 
 class _MyHomePageState extends State<formlogin> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -189,6 +193,54 @@ class _MyHomePageState extends State<formlogin> {
     );
   }
 
+  Future<void> _login() async {
+    final url = Uri.parse('http://192.168.1.8:3000/signin');
+    final headers = {'Content-Type': 'application/json'};
+    final body = json.encode({
+      'email': _emailController.text,
+      'password': _passwordController.text,
+    });
+
+    try {
+      final response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Login berhasil!');
+        //Login berhasil, lanjutkan ke halaman berikutnya
+        // Navigator.of(context);
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Login Gagal'),
+            content: Text(
+                'Email/Password salah atau terjadi kesalahan, Status : ${response.statusCode}'),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.pop(context), child: Text('OK'))
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      //Tampilkan pesan kesalahan jika login gagal
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Login Gagal'),
+          content: Text('Email/Password salah atau terjadi kesalahan'),
+          actions: [
+            TextButton(
+                onPressed: () => Navigator.pop(context), child: Text('OK'))
+          ],
+        ),
+      );
+      throw Exception('Error : $e, Gagal melakukan registrasi');
+    }
+  }
   // Future<void> _login() async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
   //   // lakukan proses login, contoh:

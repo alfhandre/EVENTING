@@ -12,6 +12,7 @@ import 'package:path/path.dart' as Path;
 
 import 'package:eventing/views/homepage.dart';
 import 'package:eventing/views/create_profile.dart';
+import 'package:eventing/views/detailprofile.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;

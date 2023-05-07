@@ -313,14 +313,41 @@ class _CreateeventState extends State<Createevent> {
                         child:
                             Icon(Icons.ios_share_rounded, color: Colors.blue)),
                     SizedBox(width: 10),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Bagikan Kepada',
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            'Tidak Ada',
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                                color: Color.fromRGBO(173, 173, 173, 1)),
+                          )),
+                    ),
                     Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Bagikan Kepada',
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold)),
-                    )
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_forward_ios_rounded,
+                              color: Colors.blue),
+                          onPressed: () {
+                            // showModalBottomSheet(
+                            //   context: context,
+                            //   builder: (context) => Center(
+                            //       child: ElevatedButton(
+                            //           child: Text('back'), onPressed: () {})),
+                            // );
+                          },
+                        ))
                   ],
                 ),
               ),

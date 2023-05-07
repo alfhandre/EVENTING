@@ -251,7 +251,11 @@ class _formregisterState extends State<formregister> {
                             Text("Sudah memiliki akun?"),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return formlogin();
+                                  },
+                                ));
                               },
                               child: Text(
                                 "Login",
