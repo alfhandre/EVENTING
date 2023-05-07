@@ -5,6 +5,8 @@ import 'package:eventing/views/mainCalendar.dart';
 import 'package:eventing/views/create_profile.dart';
 import 'package:eventing/views/formlogin.dart';
 import 'package:flutter/material.dart';
+import 'package:eventing/views/mainDaftarCalendar.dart';
+import 'package:eventing/views/detailPengumuman.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
@@ -21,6 +23,15 @@ class _MainMenuState extends State<MainMenu> {
   //   });
   // }
 
+  int _currentIndex = 0;
+
+  final tabs = [
+    // Center(child: Text('kalender')),
+    // Center(child: Text('agenda')),
+    Center(child: mainCalendar()),
+    Center(child: mainDaftarCalender()),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +39,7 @@ class _MainMenuState extends State<MainMenu> {
         centerTitle: true,
         title: Text('Eventing'),
       ),
-      body: SafeArea(child: mainCalendar()),
+      body: tabs[_currentIndex],
       drawer: Drawer(
           child: SafeArea(
         top: true,
@@ -117,26 +128,27 @@ class _MainMenuState extends State<MainMenu> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          //kolom button daftar teman
-                          Container(
-                              child: CircleAvatar(
-                                  backgroundColor: Colors.blue[100],
-                                  radius: 22,
-                                  child: SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: IconButton(
-                                        icon: Icon(Icons.people_outline),
-                                        iconSize: 28,
-                                        onPressed: () {},
-                                      )))),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              // primary: Colors.blue[100],
+                              shape: CircleBorder(),
+                            ),
+                            onPressed: () {},
+                            child: Icon(
+                              Icons.people_outline,
+                              size: 28,
+                              color: Colors.blue[100],
+                            ),
+                          ),
                           SizedBox(height: 8),
-                          Container(
-                              child: Text('Daftar Teman',
-                                  style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontSize: 8,
-                                      color: Colors.blue))),
+                          Text(
+                            'Daftar Teman',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 8,
+                              color: Colors.blue,
+                            ),
+                          ),
                         ],
                       ),
 
@@ -146,25 +158,27 @@ class _MainMenuState extends State<MainMenu> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                              child: CircleAvatar(
-                                  backgroundColor: Colors.blue[100],
-                                  radius: 22,
-                                  child: SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: IconButton(
-                                        icon: Icon(Icons.people_alt),
-                                        iconSize: 28,
-                                        onPressed: () {},
-                                      )))),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              // primary: Colors.blue[100],
+                              shape: CircleBorder(),
+                            ),
+                            onPressed: () {},
+                            child: Icon(
+                              Icons.people_alt,
+                              size: 28,
+                              color: Colors.blue[100],
+                            ),
+                          ),
                           SizedBox(height: 8),
-                          Container(
-                              child: Text('Daftar Group',
-                                  style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontSize: 8,
-                                      color: Colors.blue))),
+                          Text(
+                            'Daftar Group',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 8,
+                              color: Colors.blue,
+                            ),
+                          ),
                         ],
                       ),
 
@@ -174,25 +188,33 @@ class _MainMenuState extends State<MainMenu> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                              child: CircleAvatar(
-                                  backgroundColor: Colors.blue[100],
-                                  radius: 22,
-                                  child: SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: IconButton(
-                                        icon: Icon(Icons.volume_up_outlined),
-                                        iconSize: 28,
-                                        onPressed: () {},
-                                      )))),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              // primary: Colors.blue[100],
+                              shape: CircleBorder(),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return detailPengumuman();
+                                },
+                              ));
+                            },
+                            child: Icon(
+                              Icons.volume_up_outlined,
+                              size: 28,
+                              color: Colors.blue[100],
+                            ),
+                          ),
                           SizedBox(height: 8),
-                          Container(
-                              child: Text('Pengumuman',
-                                  style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontSize: 8,
-                                      color: Colors.blue))),
+                          Text(
+                            'Pengumuman',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 8,
+                              color: Colors.blue,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -297,8 +319,11 @@ class _MainMenuState extends State<MainMenu> {
         ),
       )),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            // activeIcon: ,
             icon: Icon(Icons.calendar_month),
             label: 'Kalender',
           ),
@@ -307,6 +332,11 @@ class _MainMenuState extends State<MainMenu> {
             label: 'Agenda',
           ),
         ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(

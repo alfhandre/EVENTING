@@ -1,13 +1,17 @@
-import 'package:eventing/views/formregister.dart';
+// import 'package:eventing/views/formregister.dart';
 import 'package:flutter/material.dart';
-import 'package:eventing/views/formlogin.dart';
+// import 'package:eventing/views/formlogin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:eventing/views/welcomeeventing.dart';
-// import 'package:eventing/views/create_event.dart';
-import 'package:eventing/views/createevent.dart';
-// import 'package:eventing/views/homepage.dart';
+// import 'package:eventing/views/welcomeeventing.dart';
+// import 'package:eventing/views/daftar_event.dart';
+// import 'package:eventing/views/createevent.dart';
+// import 'package:eventing/views/test_bottomnavbar.dart';
+import 'package:eventing/views/homepage.dart';
+import 'package:eventing/views/detailPengumuman.dart';
+import 'package:eventing/views/daftarTeman.dart';
 // import 'package:eventing/views/homescreen.dart';
+
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:eventing/views/testcreateprofile.dart';
 
@@ -26,6 +30,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        debugShowCheckedModeBanner: false, home: WelcomeEventing());
+        debugShowCheckedModeBanner: false, home: daftarTeman());
   }
 }
