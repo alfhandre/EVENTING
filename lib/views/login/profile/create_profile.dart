@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:eventing/controller/auth_controller.dart';
-import 'package:eventing/views/testcreateprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -138,159 +137,159 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
         child: SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          icon: Icon(Icons.arrow_back),
-                          color: Colors.blue,
-                          alignment: Alignment.topLeft),
-                      Text(
-                        'Profile',
-                        style: TextStyle(color: Colors.blue, fontSize: 18),
+          child: SafeArea(
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: Icon(Icons.arrow_back),
+                            color: Colors.blue,
+                            alignment: Alignment.topLeft),
+                        Text(
+                          'Profile',
+                          style: TextStyle(color: Colors.blue, fontSize: 18),
+                        ),
+                        Obx(
+                          () =>
+                              authController!.isProfileInformationLoading.value
+                                  ? Container(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : IconButton(
+                                      icon: Icon(Icons.check),
+                                      color: Colors.blue,
+                                      alignment: Alignment.topRight,
+                                      onPressed: () async {
+                                        if (!formKey.currentState!.validate()) {
+                                          return null;
+                                        }
+
+                                        if (profileImage == null) {
+                                          Get.snackbar(
+                                              'Warning', "Image is required.",
+                                              colorText: Colors.white,
+                                              backgroundColor: Colors.blue);
+                                          return null;
+                                        }
+                                        authController!
+                                            .isProfileInformationLoading(true);
+
+                                        String imageUrl = await authController!
+                                            .uploadImageToFirebaseStorage(
+                                                profileImage!);
+
+                                        authController!.uploadProfileData(
+                                            imageUrl,
+                                            userIDController.text.trim(),
+                                            displayNameController.text.trim());
+                                      }),
+                        )
+                      ]),
+                  SizedBox(
+                    height: Get.width * 0.1,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      imagePickDialog();
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 120,
+                      height: 120,
+                      margin: EdgeInsets.only(top: 5),
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(70),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xff7DDCFB),
+                            Color(0xffBC67F2),
+                            Color(0xffACF6AF),
+                            Color(0xffF95549),
+                          ],
+                        ),
                       ),
-                      Obx(
-                        () => authController!.isProfileInformationLoading.value
-                            ? Container(
-                                child: CircularProgressIndicator(),
-                              )
-                            : IconButton(
-                                icon: Icon(Icons.check),
-                                color: Colors.blue,
-                                alignment: Alignment.topRight,
-                                onPressed: () async {
-                                  if (!formKey.currentState!.validate()) {
-                                    return null;
-                                  }
-
-                                  if (profileImage == null) {
-                                    Get.snackbar(
-                                        'Warning', "Image is required.",
-                                        colorText: Colors.white,
-                                        backgroundColor: Colors.blue);
-                                    return null;
-                                  }
-                                  authController!
-                                      .isProfileInformationLoading(true);
-
-                                  String imageUrl = await authController!
-                                      .uploadImageToFirebaseStorage(
-                                          profileImage!);
-
-                                  authController!.uploadProfileData(
-                                      imageUrl,
-                                      userIDController.text.trim(),
-                                      displayNameController.text.trim());
-                                }),
-                      )
-                    ]),
-                SizedBox(
-                  height: Get.width * 0.1,
-                ),
-                InkWell(
-                  onTap: () {
-                    imagePickDialog();
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 120,
-                    height: 120,
-                    margin: EdgeInsets.only(top: 5),
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(70),
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xff7DDCFB),
-                          Color(0xffBC67F2),
-                          Color(0xffACF6AF),
-                          Color(0xffF95549),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(70),
+                            ),
+                            child: profileImage == null
+                                ? CircleAvatar(
+                                    radius: 56,
+                                    backgroundColor: Colors.white,
+                                    child: Icon(Icons.camera_alt,
+                                        size: 50, color: Colors.blue),
+                                  )
+                                : CircleAvatar(
+                                    radius: 56,
+                                    backgroundColor: Colors.white,
+                                    backgroundImage: FileImage(
+                                      profileImage!,
+                                    ),
+                                  ),
+                          ),
                         ],
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(70),
-                          ),
-                          child: profileImage == null
-                              ? CircleAvatar(
-                                  radius: 56,
-                                  backgroundColor: Colors.white,
-                                  child: Icon(Icons.camera_alt,
-                                      size: 50, color: Colors.blue),
-                                )
-                              : CircleAvatar(
-                                  radius: 56,
-                                  backgroundColor: Colors.white,
-                                  backgroundImage: FileImage(
-                                    profileImage!,
-                                  ),
-                                ),
-                        ),
-                      ],
+                  ),
+                  SizedBox(height: Get.height * 0.1),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    // padding: EdgeInsets.only(right: 260),
+                    child: Text(
+                      'User ID',
+                      style: TextStyle(color: Colors.blue),
                     ),
                   ),
-                ),
-                SizedBox(height: Get.height * 0.1),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  // padding: EdgeInsets.only(right: 260),
-                  child: Text(
-                    'User ID',
-                    style: TextStyle(color: Colors.blue),
+                  SizedBox(height: 8),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        fillColor: Colors.grey[200]),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'User ID tidak boleh kosong';
+                      }
+                    },
+                    controller: userIDController,
                   ),
-                ),
-                SizedBox(height: 8),
-                TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.grey[200]),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'User ID tidak boleh kosong';
-                    }
-                  },
-                  controller: userIDController,
-                ),
-                SizedBox(height: 30),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Display Name',
-                    style: TextStyle(color: Colors.blue),
+                  SizedBox(height: 30),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Display Name',
+                      style: TextStyle(color: Colors.blue),
+                    ),
                   ),
-                ),
-                SizedBox(height: 8),
-                TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      fillColor: Colors.grey[200]),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Nama tidak boleh kosong';
-                    }
-                  },
-                  controller: displayNameController,
-                ),
-                SizedBox(height: 30),
-              ],
+                  SizedBox(height: 8),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        fillColor: Colors.grey[200]),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Nama tidak boleh kosong';
+                      }
+                    },
+                    controller: displayNameController,
+                  ),
+                  SizedBox(height: 30),
+                ],
+              ),
             ),
           ),
         ),

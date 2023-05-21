@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eventing/views/homescreen.dart';
+import 'package:eventing/views/login/homescreen/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,9 +10,9 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path/path.dart' as Path;
 
-import 'package:eventing/views/homepage.dart';
-import 'package:eventing/views/create_profile.dart';
-import 'package:eventing/views/detailprofile.dart';
+import 'package:eventing/views/login/homescreen/homepage.dart';
+import 'package:eventing/views/login/profile/create_profile.dart';
+import 'package:eventing/views/login/profile/detailprofile.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;

@@ -1,6 +1,6 @@
 import 'package:eventing/controller/auth_controller.dart';
-import 'package:eventing/views/formregister.dart';
-import 'package:eventing/views/homepage.dart';
+import 'package:eventing/views/non-login/formregister.dart';
+import 'package:eventing/views/login/homescreen/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';

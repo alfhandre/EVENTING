@@ -8,6 +8,13 @@ class daftarTeman extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //     shadowColor: Colors.white,
+      //     centerTitle: true,
+      //     backgroundColor: Colors.white,
+      //     bottomOpacity: 0.0,
+      //     elevation: 0.0,
+      //     title: Text('Daftar Teman', style: TextStyle(color: Colors.blue))),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Container(

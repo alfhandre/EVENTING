@@ -81,7 +81,7 @@ class _mainCalendarState extends State<mainCalendar> {
             isExpanded: true,
             dayOfWeekStyle: TextStyle(
               fontSize: 15,
-              color: Colors.black12,
+              color: Colors.black,
               fontWeight: FontWeight.w100,
             ),
             bottomBarTextStyle: TextStyle(

@@ -1,5 +1,4 @@
-import 'package:eventing/views/homepage.dart';
-import 'package:eventing/views/homescreen.dart';
+import 'package:eventing/views/login/homescreen/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -84,7 +83,7 @@ class _CreateeventState extends State<Createevent> {
                     ),
                     Divider(thickness: 1, color: Colors.blue),
                     Container(
-                      height: 54.8,
+                      height: 125,
                       child: TextFormField(
                         decoration: InputDecoration(
                           enabledBorder: InputBorder.none,

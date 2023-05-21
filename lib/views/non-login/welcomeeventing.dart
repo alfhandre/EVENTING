@@ -1,5 +1,5 @@
-import 'package:eventing/views/formlogin.dart';
-import 'package:eventing/views/formregister.dart';
+import 'package:eventing/views/non-login/formlogin.dart';
+import 'package:eventing/views/non-login/formregister.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeEventing extends StatelessWidget {
@@ -107,13 +107,18 @@ class WelcomeEventing extends StatelessWidget {
                           TextButton(
                               onPressed: () {},
                               child: Text('Ketentuan Layanan',
-                                  style: TextStyle(fontSize: 12))),
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      decoration: TextDecoration.underline))),
                           Text('dan', style: TextStyle(fontSize: 12)),
                           TextButton(
                               onPressed: () {},
                               child: Text('Kebijakan Privasi',
                                   style: TextStyle(fontSize: 12))),
-                          Text('Eventing', style: TextStyle(fontSize: 12)),
+                          Text('Eventing',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  decoration: TextDecoration.underline)),
                         ],
                       ))
                 ],

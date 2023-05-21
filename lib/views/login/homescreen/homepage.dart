@@ -1,12 +1,15 @@
 // import 'package:eventing/views/create_event.dart';
-import 'package:eventing/views/createevent.dart';
-import 'package:eventing/views/homescreen.dart';
-import 'package:eventing/views/mainCalendar.dart';
-import 'package:eventing/views/create_profile.dart';
-import 'package:eventing/views/formlogin.dart';
+import 'package:eventing/views/login/event/createevent.dart';
+import 'package:eventing/views/login/homescreen/mainCalendar.dart';
+import 'package:eventing/views/login/profile/create_profile.dart';
+import 'package:eventing/views/non-login/formlogin.dart';
 import 'package:flutter/material.dart';
-import 'package:eventing/views/mainDaftarCalendar.dart';
+import 'package:eventing/views/login/homescreen/mainDaftarCalendar.dart';
 import 'package:eventing/views/detailPengumuman.dart';
+import 'package:eventing/views/login/teman/daftarTeman.dart';
+
+
+import 'package:eventing/views/pengaturan.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
@@ -103,7 +106,7 @@ class _MainMenuState extends State<MainMenu> {
                               onPressed: () {
                                 Navigator.of(context).push(
                                     MaterialPageRoute(builder: ((context) {
-                                  return Createevent();
+                                  return pengaturan();
                                 })));
                               }),
                         )
@@ -133,7 +136,13 @@ class _MainMenuState extends State<MainMenu> {
                               // primary: Colors.blue[100],
                               shape: CircleBorder(),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return daftarTeman();
+                                },
+                              ));
+                            },
                             child: Icon(
                               Icons.people_outline,
                               size: 28,
@@ -163,7 +172,13 @@ class _MainMenuState extends State<MainMenu> {
                               // primary: Colors.blue[100],
                               shape: CircleBorder(),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //   builder: (context) {
+                              //     return daftarGroup();
+                              //   },
+                              // ));
+                            },
                             child: Icon(
                               Icons.people_alt,
                               size: 28,
